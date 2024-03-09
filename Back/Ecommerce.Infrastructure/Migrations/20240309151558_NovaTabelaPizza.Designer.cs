@@ -4,6 +4,7 @@ using Ecommerce.Infrastructure.EntityFramework.Contextos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240309151558_NovaTabelaPizza")]
+    partial class NovaTabelaPizza
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -275,7 +277,7 @@ namespace Ecommerce.Infrastructure.Migrations
                         new
                         {
                             Id = 9,
-                            Categoria = 2,
+                            Categoria = 0,
                             Descricao = "Pizza de calabresa, com queijo, cebola e molho de tomate.",
                             Preco = 25.00m,
                             Titulo = "Pizza de Calabresa"
@@ -283,7 +285,7 @@ namespace Ecommerce.Infrastructure.Migrations
                         new
                         {
                             Id = 10,
-                            Categoria = 1,
+                            Categoria = 0,
                             Descricao = "Pizza de calabresa, com queijo, cebola e molho de tomate.",
                             Preco = 25.00m,
                             Titulo = "Pizza de Calabresa"
@@ -291,7 +293,7 @@ namespace Ecommerce.Infrastructure.Migrations
                         new
                         {
                             Id = 11,
-                            Categoria = 4,
+                            Categoria = 0,
                             Descricao = "Pizza de calabresa, com queijo, cebola e molho de tomate.",
                             Preco = 25.00m,
                             Titulo = "Pizza de Calabresa"
@@ -299,7 +301,7 @@ namespace Ecommerce.Infrastructure.Migrations
                         new
                         {
                             Id = 12,
-                            Categoria = 3,
+                            Categoria = 0,
                             Descricao = "Pizza de calabresa, com queijo, cebola e molho de tomate.",
                             Preco = 25.00m,
                             Titulo = "Pizza de Calabresa"

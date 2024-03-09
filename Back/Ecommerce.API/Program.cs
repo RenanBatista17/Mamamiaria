@@ -96,10 +96,12 @@ builder.Services.AddSwaggerGen(options => {
 builder.Services.AddScoped<IGeralPersist, GeralPersist>();
 builder.Services.AddScoped<IUserPersist, UserPersist>();
 builder.Services.AddScoped<IEnderecoPersist, EnderecoPersist>();
+builder.Services.AddScoped<IPizzaPersist, PizzaPersist>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEnderecoService, EnderecoService>();
+builder.Services.AddScoped<IPizzaService, PizzaService>();
 
 builder.Services.AddCors();
 
@@ -116,6 +118,11 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors(x => x.AllowAnyHeader()
+                  .AllowAnyMethod()
+                  .AllowAnyOrigin());
+
 
 app.MapControllers();
 

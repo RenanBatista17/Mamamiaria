@@ -13,6 +13,7 @@ namespace Ecommerce.Application.Helpers
             CreateMap<User, UserLoginDto>().ReverseMap();
             CreateMap<User, UserUpdateDto>().ReverseMap();
             CreateMap<Endereco, EnderecoDto>().ReverseMap();
+            CreateMap<Pizza, PizzaDto>().ReverseMap();
         }
     }
 }
