@@ -91,15 +91,16 @@ section{
    position: relative;
 }
 
-.header .flex .logo{
-   font-size: 2.5rem;
-   color:var(--white);
+.header .flex .logo img{
+   width: 150px;
+   height: auto;
+   position: relative;
 }
 
 .header .flex .navbar a{
    margin:0 1rem;
    font-size: 2.2rem;
-   color:var(--white);
+   color:var(--black);
 }
 
 .header .flex .navbar a:hover{
