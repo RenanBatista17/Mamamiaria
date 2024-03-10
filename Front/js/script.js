@@ -63,3 +63,145 @@ accordion.forEach(acco =>{
       acco.classList.add('active');
    }
 });
+
+function getPizzas(){
+   fetch('https://sua-api.com/pizzas')
+  .then(response => response.json())
+  .then(data => {
+      const pizzasContainer = document.getElementById('pizzas-container');
+
+      data.forEach(pizza => {
+      const pizzaElement = document.createElement('div');
+      pizzaElement.innerHTML = `
+         <div class="price">R$ ${pizza.Preco}</div>
+         <img src="images/pizza-6.jpg" alt="">
+         <div class="name">${pizza.Titulo}</div>
+      `;
+      pizzasContainer.appendChild(pizzaElement);
+      });
+  })
+  .catch(error => {
+    console.error('Erro ao obter dados das pizzas:', error);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+   fetch('https://localhost:7232/api/Pizza/GetAllPizzas')
+   .then(response => response.json())
+   .then(data => {
+         
+       const pizzasContainer = document.getElementById('pizzas-container');
+ 
+       data.forEach(pizza => {
+       const pizzaElement = document.createElement('div');
+       pizzaElement.className = 'box';
+       pizzaElement.innerHTML = `
+          <div class="price">R$ ${pizza.preco}</div>
+          <img src="images/pizza-6.jpg" alt="">
+          <div class="name">${pizza.titulo}</div>
+          <form action="" method="post">
+            <input type="number" min="1" max="100" value="1" class="qty" name="qty">
+            <input type="submit" value="+ Carrinho" name="add_to_cart" class="btn">
+         </form>
+       `;
+       pizzasContainer.appendChild(pizzaElement);
+       });
+   })
+   .catch(error => {
+     console.error('Erro ao obter dados das pizzas:', error);
+   });
+});
+
+// document.querySelector('#btnRegistro').onclick = () =>{
+//    fetch('https://sua-api.com/registro', {
+//    method: 'POST',
+//    headers: {
+//       'Content-Type': 'application/json'
+//    },
+//    body: JSON.stringify({
+//       username: 'usuario',
+//       password: 'senha'
+      
+//    })
+//    })
+//    .then(response => response.json())
+//    .then(data => {
+//    const token = data.token;
+//    console.log('Registro realizado com sucesso. Token JWT obtido:', token);
+
+//    // Armazenar o token em localStorage ou sessionStorage para uso posterior
+//    localStorage.setItem('jwtToken', token);
+//    })
+//    .catch(error => {
+//    console.error('Erro no registro:', error);
+//    });
+// }
+
+document.getElementById('registroForm').addEventListener('submit', function(event) {
+   event.preventDefault(); // Evita o envio padrão do formulário
+ 
+   const nome = document.getElementById('nome').value;
+   const email = document.getElementById('email').value;
+   const senha = document.getElementById('senha').value;
+   const cpf = document.getElementById('cpf').value;
+   const idade = document.getElementById('idade').value;
+   // Obtenha os outros valores dos campos do formulário
+ 
+   fetch('https://localhost:7232/api/User/Register', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify({
+        email : email,
+        passWord : senha,
+        nome : nome, 
+        cpf : cpf,
+        idade : idade
+       // Outros dados necessários para o registro
+     })
+   })
+   .then(response => response.json())
+   .then(data => {
+     const token = data.token;
+     console.log('Registro realizado com sucesso. Token JWT obtido:', token);
+ 
+     // Armazenar o token em localStorage ou sessionStorage para uso posterior
+     localStorage.setItem('jwtToken', token);
+   })
+   .catch(error => {
+     console.error('Erro no registro:', error);
+   });
+ });
+
+ document.getElementById('registroForm').addEventListener('submit', function(event) {
+   event.preventDefault(); // Evita o envio padrão do formulário
+ 
+   const email = document.getElementById('email').value;
+   const senha = document.getElementById('senha').value;
+   
+   // Obtenha os outros valores dos campos do formulário
+ 
+   fetch('https://localhost:7232/api/User/Login', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify({
+        email : email,
+        passWord : senha
+       // Outros dados necessários para o registro
+     })
+   })
+   .then(response => response.json())
+   .then(data => {
+     const token = data.token;
+     console.log('Login realizado com sucesso. Token JWT obtido:', token);
+ 
+     // Armazenar o token em localStorage ou sessionStorage para uso posterior
+     localStorage.setItem('jwtToken', token);
+   })
+   .catch(error => {
+     console.error('Erro no Login:', error);
+   });
+ });
