@@ -8,6 +8,7 @@
    --border:.1rem solid var(--light-color);
    --box-shadow:0 .5rem 1rem rgba(0,0,0,.1);
 }
+
 *{
    font-family: 'Nunito', sans-serif;
    margin:0; padding:0;
@@ -16,6 +17,7 @@
    text-decoration: none;
    transition: .2s linear; 
 }
+
 ::-webkit-scrollbar{
    width: 1rem;
    height: .5rem;
@@ -44,8 +46,9 @@ section{
    padding:2rem;
    margin:0 auto;
    max-width: 1200px;
-   margin-top: 58px;
+   margin-top: 10px;
 }
+
 .btn{
    display: block;
    width: 100%;
@@ -137,11 +140,12 @@ section{
    font-size: 1.8rem;
    color:var(--black);
 }
-img{
+
+.imageDiv a{
    margin: 0;
    display: flex;
    justify-content: center;
    width: auto;
-   height: 400px;
-   margin-left: 350px;
+   height: 280px;
+   text-align: center;   
 }
