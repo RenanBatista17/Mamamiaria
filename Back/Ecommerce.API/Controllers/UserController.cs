@@ -75,7 +75,7 @@ namespace Ecommerce.API.Controllers
             try
             {
                 var user = await _userService.GetUserByEmailAsync(userLoginDto.Email);
-                if(user == null) return Unauthorized("Username está incorreto.");
+                if(user == null) return Unauthorized("Email está incorreto.");
 
                 var result = await _userService.CheckUserPassWordAsync(user, userLoginDto.PassWord);
                 if(result.Succeeded){
