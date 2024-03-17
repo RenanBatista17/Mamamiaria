@@ -97,11 +97,15 @@ builder.Services.AddScoped<IGeralPersist, GeralPersist>();
 builder.Services.AddScoped<IUserPersist, UserPersist>();
 builder.Services.AddScoped<IEnderecoPersist, EnderecoPersist>();
 builder.Services.AddScoped<IPizzaPersist, PizzaPersist>();
+builder.Services.AddScoped<ICarrinhoPersist, CarrinhoPersist>();
+
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEnderecoService, EnderecoService>();
 builder.Services.AddScoped<IPizzaService, PizzaService>();
+builder.Services.AddScoped<IPedidoService, PedidoService>();
+
 
 builder.Services.AddCors();
 

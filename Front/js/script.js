@@ -7,17 +7,41 @@ document.querySelector('#menu-btn').onclick = () =>{
 
 let account = document.querySelector('.user-account');
 
+document.querySelector('#proximobtn').onclick = () =>{
+   const token = localStorage.getItem('jwtToken');
+
+   fetch('https://localhost:7232/api/Endereco', {
+     method: 'GET',
+     headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+     }
+   })
+   .then(response => response.json())
+   .then(data => {
+      document.getElementById('rua').value = data.rua;
+      document.getElementById('numero').value = data.numero;
+   })
+   .catch(error => {
+     console.error('Erro no registro:', error);
+   });
+   account.classList.add('active');   
+}
+
 document.querySelector('#user-btn').onclick = () =>{
    document.location.href="pginicial.html";   
 }
-/*
+
+
 document.querySelector('#close-account').onclick = () =>{
    account.classList.remove('active');
 }
-*/
+
+
+
 
 let myOrders = document.querySelector('.my-orders');
-/*
+
 document.querySelector('#order-btn').onclick = () =>{
    myOrders.classList.add('active');
 }
@@ -25,11 +49,11 @@ document.querySelector('#order-btn').onclick = () =>{
 document.querySelector('#close-orders').onclick = () =>{
    myOrders.classList.remove('active');
 }
-*/
+
 
 let cart = document.querySelector('.shopping-cart');
 
-/*
+
 document.querySelector('#cart-btn').onclick = () =>{
    cart.classList.add('active');
 }
@@ -37,7 +61,7 @@ document.querySelector('#cart-btn').onclick = () =>{
 document.querySelector('#close-cart').onclick = () =>{
    cart.classList.remove('active');
 }
-*/
+
 
 window.onscroll = () =>{
    navbar.classList.remove('active');
@@ -117,96 +141,63 @@ document.addEventListener('DOMContentLoaded', function() {
    });
 });
 
-// document.querySelector('#btnRegistro').onclick = () =>{
-//    fetch('https://sua-api.com/registro', {
-//    method: 'POST',
-//    headers: {
-//       'Content-Type': 'application/json'
-//    },
-//    body: JSON.stringify({
-//       username: 'usuario',
-//       password: 'senha'
-      
-//    })
+// document.getElementById('carrinhoForm').addEventListener('submit', function(event) {
+//    event.preventDefault(); 
+
+//    const token = localStorage.getItem('jwtToken');
+
+//    fetch('https://localhost:7232/api/Endereco', {
+//      method: 'GET',
+//      headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': `Bearer ${token}`
+//      }
 //    })
 //    .then(response => response.json())
 //    .then(data => {
-//    const token = data.token;
-//    console.log('Registro realizado com sucesso. Token JWT obtido:', token);
-
-//    // Armazenar o token em localStorage ou sessionStorage para uso posterior
-//    localStorage.setItem('jwtToken', token);
+//       document.getElementById('rua').value = data.rua;
+//       document.getElementById('numero').value = data.numero;
 //    })
 //    .catch(error => {
-//    console.error('Erro no registro:', error);
+//      console.error('Erro no registro:', error);
 //    });
-// }
+//  });
 
-document.getElementById('registroForm').addEventListener('submit', function(event) {
-   event.preventDefault(); // Evita o envio padrão do formulário
+
+document.getElementById('pedidoForm').addEventListener('submit', function(event) {
+   event.preventDefault(); 
+
+   const token = localStorage.getItem('jwtToken');
  
-   const nome = document.getElementById('nome').value;
-   const email = document.getElementById('email').value;
-   const senha = document.getElementById('senha').value;
-   const cpf = document.getElementById('cpf').value;
-   const idade = document.getElementById('idade').value;
-   // Obtenha os outros valores dos campos do formulário
+   const nome = document.getElementById('nomePedido').value;
+   const telefone = document.getElementById('numeroTelefone').value;
+   const metodoDePagamento = document.getElementById('metododepagamento').value;
+   const metodoDeEntrega = document.getElementById('metododeentrega').value;
+   const rua = document.getElementById('rua').value;
+   const numero = document.getElementById('numero').value;
+
  
-   fetch('https://localhost:7232/api/User/Register', {
+   fetch('https://localhost:7232/api/Pedido/CriarPedido', {
      method: 'POST',
      headers: {
-       'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
      },
      body: JSON.stringify({
-        email : email,
-        passWord : senha,
+        telefone : telefone,
         nome : nome, 
-        cpf : cpf,
-        idade : idade
-       // Outros dados necessários para o registro
+        mododePagamento : metodoDePagamento,
+        modoDeEntrega : metodoDeEntrega,
+        rua : rua,
+        numero : numero
      })
    })
    .then(response => response.json())
    .then(data => {
-     const token = data.token;
-     console.log('Registro realizado com sucesso. Token JWT obtido:', token);
- 
-     // Armazenar o token em localStorage ou sessionStorage para uso posterior
-     localStorage.setItem('jwtToken', token);
+     console.log('Pedido realizado com sucesso. ');
    })
    .catch(error => {
      console.error('Erro no registro:', error);
    });
  });
 
- document.getElementById('registroForm').addEventListener('submit', function(event) {
-   event.preventDefault(); // Evita o envio padrão do formulário
- 
-   const email = document.getElementById('email').value;
-   const senha = document.getElementById('senha').value;
-   
-   // Obtenha os outros valores dos campos do formulário
- 
-   fetch('https://localhost:7232/api/User/Login', {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     body: JSON.stringify({
-        email : email,
-        passWord : senha
-       // Outros dados necessários para o registro
-     })
-   })
-   .then(response => response.json())
-   .then(data => {
-     const token = data.token;
-     console.log('Login realizado com sucesso. Token JWT obtido:', token);
- 
-     // Armazenar o token em localStorage ou sessionStorage para uso posterior
-     localStorage.setItem('jwtToken', token);
-   })
-   .catch(error => {
-     console.error('Erro no Login:', error);
-   });
- });

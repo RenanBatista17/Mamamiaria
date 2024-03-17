@@ -18,6 +18,9 @@ namespace Ecommerce.Infrastructure.EntityFramework.Contextos
 
         public DbSet<Endereco> Enderecos { get; set; }
         public DbSet<Pizza> Pizzas { get; set; }
+        public DbSet<Carrinho> Carrinhos { get; set; }
+        public DbSet<CarrinhoItem> CarrinhoItems { get; set; }
+        public DbSet<Pedido> Pedidos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder){
 
@@ -37,6 +40,12 @@ namespace Ecommerce.Infrastructure.EntityFramework.Contextos
                         .WithMany(u => u.UserRoles)
                         .HasForeignKey(ur => ur.UserId)
                         .IsRequired();
+
+            modelBuilder.Entity<Carrinho>()
+                        .HasMany(c => c.Itens)
+                        .WithOne(i => i.Carrinho)
+                        .IsRequired();
+            
 
             modelBuilder.Entity<Pizza>().HasData(new Pizza{
                 Id = 1,

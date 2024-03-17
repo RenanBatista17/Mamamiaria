@@ -145,6 +145,50 @@ namespace Ecommerce.Infrastructure.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
+            modelBuilder.Entity("Ecommerce.Domain.Models.Carrinho", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Carrinhos");
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Models.CarrinhoItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CarrinhoId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PizzaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantidade")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CarrinhoId");
+
+                    b.HasIndex("PizzaId");
+
+                    b.ToTable("CarrinhoItems");
+                });
+
             modelBuilder.Entity("Ecommerce.Domain.Models.Endereco", b =>
                 {
                     b.Property<int>("Id")
@@ -179,6 +223,52 @@ namespace Ecommerce.Infrastructure.Migrations
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Enderecos");
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Models.Pedido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("ModoDeEntrega")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ModoDePagamento")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PizzaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rua")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PizzaId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("Ecommerce.Domain.Models.Pizza", b =>
@@ -413,6 +503,36 @@ namespace Ecommerce.Infrastructure.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Ecommerce.Domain.Models.Carrinho", b =>
+                {
+                    b.HasOne("Ecommerce.Domain.Identity.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Models.CarrinhoItem", b =>
+                {
+                    b.HasOne("Ecommerce.Domain.Models.Carrinho", "Carrinho")
+                        .WithMany("Itens")
+                        .HasForeignKey("CarrinhoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.Domain.Models.Pizza", "Pizza")
+                        .WithMany()
+                        .HasForeignKey("PizzaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Carrinho");
+
+                    b.Navigation("Pizza");
+                });
+
             modelBuilder.Entity("Ecommerce.Domain.Models.Endereco", b =>
                 {
                     b.HasOne("Ecommerce.Domain.Identity.User", "Usuario")
@@ -420,6 +540,25 @@ namespace Ecommerce.Infrastructure.Migrations
                         .HasForeignKey("UsuarioId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Models.Pedido", b =>
+                {
+                    b.HasOne("Ecommerce.Domain.Models.Pizza", "Pizza")
+                        .WithMany()
+                        .HasForeignKey("PizzaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Ecommerce.Domain.Identity.User", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pizza");
 
                     b.Navigation("Usuario");
                 });
@@ -468,6 +607,11 @@ namespace Ecommerce.Infrastructure.Migrations
             modelBuilder.Entity("Ecommerce.Domain.Identity.User", b =>
                 {
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("Ecommerce.Domain.Models.Carrinho", b =>
+                {
+                    b.Navigation("Itens");
                 });
 #pragma warning restore 612, 618
         }

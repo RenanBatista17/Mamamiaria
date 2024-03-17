@@ -40,7 +40,7 @@
 
 <!-- Conta de Usuário -->
 
-<div class="user-account">
+<!-- <div class="user-account">
 
    <section>
 
@@ -59,6 +59,8 @@
             <input type="submit" value="login now" name="login" class="btn">
          </form>
 
+         
+
          <form id="registroForm" action="" method="post">
             <h3>Registre-se</h3>
             <input type="text" id="nome" name="name" required class="box" placeholder="Digite o seu Nome" maxlength="20">
@@ -73,7 +75,58 @@
 
    </section>
 
+</div> -->
+
+
+<div class="user-account">
+
+   <section>
+
+      <div id="close-account"><span>X</span></div>
+
+      <div class="flex">
+
+         <form id="pedidoForm" action="" method="post">
+           
+                  <span>Nome :</span>
+                  <input id="nomePedido" type="text" name="name" class="box" required placeholder="Digite o seu nome" maxlength="20">
+               
+               
+                  <span>Número de Telefone :</span>
+                  <input id="numeroTelefone" type="number"  name="number" class="box" required placeholder="Digite o seu número" min="0">
+               
+               
+                  <span>Método de Pagamento</span>
+                  <select id="metododepagamento" name="method" class="box">
+                     <option value="Pagar na Entrega">Pagar na Entrega</option>
+                     <option value="Cartão de Crédito">Cartão de Crédito</option>
+                     <option value="pix">Pix</option>
+                  </select>
+
+                  <span>Modo de Entrega</span>
+                  <select id="metododeentrega" name="method" class="box">
+                     <option value="Entrega domiciliar">Entrega domiciliar</option>
+                     <option value="Retirada no local">Retirada no local</option>
+                  </select>
+               
+               
+                  <span>Rua :</span>
+                  <input type="text" id="rua" name="flat" class="box" maxlength="50">
+               
+               
+                  <span>Número :</span>
+                  <input type="text"  id="numero" name="street" class="box" maxlength="50">
+                 
+            <input type="submit" value="Comprar" class="btn" name="order">
+      
+         </form>
+
+      </div>
+
+   </section>
+
 </div>
+
 
 <div class="my-orders">
 
@@ -114,56 +167,22 @@
    <section>
 
       <div id="close-cart"><span>X</span></div>
-
-      <div class="box">
-         <a href="#" class="fas fa-times"></a>
-         <img src="images/pizza-6.jpg" alt="">
-         <div class="content">
-            <p>Pizza 4 Queijos <span><br>R$ 30,00</span></p>
-            <form action="" method="post">
-               <input type="number" class="qty" name="qty" min="1" value="2" max="100">
-               <button type="submit" class="fas fa-edit" name="update_qty"></button>
-            </form>
+      <form id="carrinhoForm" action="" method="get">
+         <div class="box">
+            <a href="#" class="fas fa-times"></a>
+            <img src="images/pizza-6.jpg" alt="">
+            <div class="content">
+               <p>Pizza de Calabresa <span><br>R$ 25,00</span></p>
+               <form action="" method="post">
+                  <input type="number" class="qty" name="qty" min="1" value="2" max="100">
+                  <!-- <button type="submit" class="fas fa-edit" name="update_qty"></button> -->
+               </form>
+            </div>
          </div>
-      </div>
 
-      <div class="box">
-         <a href="#" class="fas fa-times"></a>
-         <img src="images/pizza-3.jpg" alt="">
-         <div class="content">
-            <p>Pizza Brotinho <span><br>R$ 15,00</span></p>
-            <form action="" method="post">
-               <input type="number" class="qty" name="qty" min="1" value="1" max="100">
-               <button type="submit" class="fas fa-edit" name="update_qty"></button>
-            </form>
-         </div>
-      </div>
 
-      <div class="box">
-         <a href="#" class="fas fa-times"></a>
-         <img src="images/home-img-3.png" alt="">
-         <div class="content">
-            <p>Pizza Mascarpone c/ Cogumelos <span><br>R$ 40,00</span></p>
-            <form action="" method="post">
-               <input type="number" class="qty" name="qty" min="1" value="2" max="100">
-               <button type="submit" class="fas fa-edit" name="update_qty"></button>
-            </form>
-         </div>
-      </div>
-
-      <div class="box">
-         <a href="#" class="fas fa-times"></a>
-         <img src="images/pizza-7.jpg" alt="">
-         <div class="content">
-            <p>Pizza Portuguesa <span><br>R$ 35,00</span></p>
-            <form action="" method="post">
-               <input type="number" class="qty" name="qty" min="1" value="1" max="100">
-               <button type="submit" class="fas fa-edit" name="update_qty"></button>
-            </form>
-         </div>
-      </div>
-
-      <a href="#order" class="btn">Próximo</a>
+         <a id="proximobtn" value="Registre-se" class="btn">Fazer Pedido</a>
+      </form>
 
    </section>
 
@@ -360,7 +379,7 @@
 
 <!-- Peça Agora  -->
 
-<section class="order" id="order">
+<!-- <section class="order" id="order">
 
    <h1 class="heading">Peça Agora</h1>
 
@@ -400,7 +419,7 @@
 
    </form>
 
-</section>
+</section> -->
 
 <!-- FAQ  -->
 

@@ -22,25 +22,25 @@
 
       <div class="flex">
 
-         <form action="" method="post">
+         <form id="loginForm" action="" method="post">
             <h3>login</h3>
-            <input type="email" name="email" required class="box" placeholder="Digite o seu E-mail" maxlength="50">
-            <input type="password" name="pass" required class="box" placeholder="Digite a sua Senha" maxlength="20">
+            <input id="emaillogin" type="email" name="email" required class="box" placeholder="Digite o seu E-mail" maxlength="50">
+            <input id="senhalogin" type="password" name="pass" required class="box" placeholder="Digite a sua Senha" maxlength="20">
             <input type="submit" value="Entre" name="login" class="btn">
          </form>
 
-         <form action="" method="post">
+         <form id="registroForm"  action="" method="post">
             <h3>Registre-se</h3>
-            <input type="text" name="name" required class="box" placeholder="Digite o seu Nome" maxlength="20">
-            <input type="email" name="email" required class="box" placeholder="Digite o seu E-mail" maxlength="50">
-            <input type="password" name="pass" required class="box" placeholder="Digite a sua Senha" maxlength="20">
-            <input type="password" name="cpass" required class="box" placeholder="Confirme a sua Senha" maxlength="20">
-            <input type="endereco" name="ender" required class="box" placeholder="Digite o seu Endereço" maxlength="30">
+            <input type="text" id="nome" required class="box" placeholder="Digite o seu Nome" maxlength="20">
+            <input type="email" id="email" required class="box" placeholder="Digite o seu E-mail" maxlength="50">
+            <input type="password" id="senha" required class="box" placeholder="Digite a sua Senha" maxlength="20">
+            <input type="password" id="cpf" required class="box" placeholder="Confirme o seu CPF" maxlength="20">
+            <input type="endereco" id="idade" required class="box" placeholder="Digite a sua idade" maxlength="30">
             <input type="submit" value="Registre-se" name="register" class="btn">
          </form>
       </div>
    </section>
 </div>
-<script src="js/script.js"></script>
+<script src="js/scriptCadastro.js"></script>
 </body>
 </html>

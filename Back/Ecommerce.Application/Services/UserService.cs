@@ -6,6 +6,7 @@ using AutoMapper;
 using Ecommerce.Application.Dtos;
 using Ecommerce.Application.Services.Interfaces;
 using Ecommerce.Domain.Identity;
+using Ecommerce.Domain.Models;
 using Ecommerce.Infrastructure.Repositories.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -18,16 +19,19 @@ namespace Ecommerce.Application.Services
         private readonly UserManager<User> _userManager;
         private readonly IUserPersist _userPersist;
         private readonly IMapper _mapper;
+        private readonly ICarrinhoPersist _carrinhoPersist;
 
         public UserService(UserManager<User> userManager,
                            SignInManager<User> signInManager,
                            IMapper mapper,
-                           IUserPersist userPersist)
+                           IUserPersist userPersist,
+                           ICarrinhoPersist carrinhoPersist)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _userPersist = userPersist;
             _mapper = mapper;
+            _carrinhoPersist = carrinhoPersist;
         }
 
         public async Task<SignInResult> CheckUserPassWordAsync(UserUpdateDto userUpdateDto, string passWord)
@@ -55,6 +59,9 @@ namespace Ecommerce.Application.Services
                 
                 if(result.Succeeded){
                     var userRetorno = _mapper.Map<UserUpdateDto>(user);
+                    var idUser = await CriarCarrinhoUsuario(userRetorno.Email);
+                    CriarItemCarrinho(idUser);
+
                     return userRetorno;
                 }
 
@@ -127,6 +134,37 @@ namespace Ecommerce.Application.Services
             {
                 
                 throw new Exception($"Erro ao verificar se o Usuário existe. Erro: {e.Message}");
+            }
+        }
+
+        private async Task<int> CriarCarrinhoUsuario(string email){
+            try
+            {
+                var user = await _userPersist.GetUserByEmailAsync(email);
+                _carrinhoPersist.Add(new Carrinho{UserId = user.Id});
+
+                await _carrinhoPersist.SaveChangesAsync();
+                return user.Id;
+                
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception(e.Message);
+            }
+        }
+
+        private async void CriarItemCarrinho(int userId){
+            try
+            {
+                var carrinhoDoUsuario = _carrinhoPersist.GetCarrinhoByUserId(userId);
+                _carrinhoPersist.Add(new CarrinhoItem{CarrinhoId = carrinhoDoUsuario.Id, PizzaId = 1});
+                await _carrinhoPersist.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                
+                throw new Exception(e.Message);
             }
         }
     }
